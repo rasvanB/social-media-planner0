@@ -4,10 +4,11 @@ import {
   type NextAuthOptions,
   type DefaultSession,
 } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { env } from "~/env.mjs";
+import CredentialsProvider from "next-auth/providers/credentials";
+// import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
+import { signInSchema } from "~/types/authTypes";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -47,19 +48,29 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: PrismaAdapter(prisma),
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
+    CredentialsProvider({
+      id: "credentials",
+      name: "credentials",
+      credentials: {
+        email: { label: "Email", type: "text", placeholder: "" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials, _req) {
+        const result = signInSchema.safeParse(credentials);
+        if (!result.success) {
+          throw new Error("Invalid credentials");
+        }
+        const user = await prisma.user.findUnique({
+          where: {
+            email: result.data.email,
+          },
+        });
+        if (!user) {
+          throw new Error("User not found");
+        }
+        return user;
+      },
     }),
-    /**
-     * ...add more providers here.
-     *
-     * Most other providers require a bit more work than the Discord provider. For example, the
-     * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-     * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-     *
-     * @see https://next-auth.js.org/providers/github
-     */
   ],
 };
 
