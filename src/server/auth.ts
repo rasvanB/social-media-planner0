@@ -6,9 +6,9 @@ import {
 } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
-// import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
 import { signInSchema } from "~/types/authTypes";
+import { hashPassword } from "~/utils/hash";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -20,32 +20,12 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
+      username: string;
+      email: string;
     } & DefaultSession["user"];
   }
-
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
 }
-
-/**
- * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
- *
- * @see https://next-auth.js.org/configuration/options
- */
 export const authOptions: NextAuthOptions = {
-  callbacks: {
-    session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
-        // session.user.role = user.role; <-- put other properties on the session here
-      }
-      return session;
-    },
-  },
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
@@ -61,17 +41,38 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Invalid credentials");
         }
         const user = await prisma.user.findUnique({
-          where: {
-            email: result.data.email,
-          },
+          where: { email: result.data.email },
         });
         if (!user) {
           throw new Error("User not found");
+        }
+        const isPasswordCorrect =
+          user.password === hashPassword(result.data.password);
+        if (!isPasswordCorrect) {
+          throw new Error("Invalid password");
         }
         return user;
       },
     }),
   ],
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.name = user.name;
+        if (user.email) token.email = user.email;
+      }
+      return token;
+    },
+    session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
+        session.user.name = user.name;
+        if (user.email) session.user.email = user.email;
+      }
+      return session;
+    },
+  },
 };
 
 /**
