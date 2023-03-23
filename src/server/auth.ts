@@ -10,12 +10,6 @@ import { prisma } from "~/server/db";
 import { signInSchema } from "~/types/authTypes";
 import { hashPassword } from "~/utils/hash";
 
-/**
- * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
- * object and keep type safety.
- *
- * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
- */
 declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
@@ -56,14 +50,6 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-        token.name = user.name;
-        if (user.email) token.email = user.email;
-      }
-      return token;
-    },
     session({ session, user }) {
       if (session.user) {
         session.user.id = user.id;
