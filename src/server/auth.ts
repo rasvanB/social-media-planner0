@@ -21,34 +21,7 @@ declare module "next-auth" {
 }
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
-  providers: [
-    CredentialsProvider({
-      id: "credentials",
-      name: "credentials",
-      credentials: {
-        email: { label: "Email", type: "text", placeholder: "" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials, _req) {
-        const result = signInSchema.safeParse(credentials);
-        if (!result.success) {
-          throw new Error("Invalid credentials");
-        }
-        const user = await prisma.user.findUnique({
-          where: { email: result.data.email },
-        });
-        if (!user) {
-          throw new Error("User not found");
-        }
-        const isPasswordCorrect =
-          user.password === hashPassword(result.data.password);
-        if (!isPasswordCorrect) {
-          throw new Error("Invalid password");
-        }
-        return user;
-      },
-    }),
-  ],
+  providers: [],
   callbacks: {
     session({ session, user }) {
       if (session.user) {
