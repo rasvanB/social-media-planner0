@@ -10,8 +10,11 @@ import { signIn } from "next-auth/react";
 import { ErrorMessage } from "@hookform/error-message";
 import Error from "~/components/error";
 import Button from "~/components/button";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 const SignIn: NextPage = () => {
+  const [error, setError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -22,19 +25,19 @@ const SignIn: NextPage = () => {
     criteriaMode: "firstError",
   });
 
+  const { push } = useRouter();
   console.log(errors, isValid);
 
   const onSubmit: SubmitHandler<SignInSchema> = async (data) => {
     await signIn("credentials", {
       ...data,
       redirect: false,
-    }).then((res) => {
+    }).then(async (res) => {
       if (res) {
         if (res.ok) {
-          // TODO: handle success
+          await push("/");
         } else {
-          // TODO: handle error
-          console.error(res.error);
+          setError(res.error || "Something went wrong");
         }
       }
     });
@@ -46,6 +49,7 @@ const SignIn: NextPage = () => {
         Sign in to your account
       </h2>
       <form className=" flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
+        {error && <Error message={error} />}
         <div>
           <label htmlFor="email">Email</label>
           <input
