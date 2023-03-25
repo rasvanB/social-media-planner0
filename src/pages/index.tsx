@@ -3,11 +3,10 @@ import { useSession } from "next-auth/react";
 
 const Home: NextPage = () => {
   const { data, status } = useSession();
-  console.log(data);
   return (
-    <>
+    <div className="font-inter">
       {data?.user.email} {status}
-    </>
+    </div>
   );
 };
 

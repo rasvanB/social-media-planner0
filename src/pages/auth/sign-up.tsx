@@ -10,23 +10,19 @@ import Error from "~/components/error";
 import Button from "~/components/button";
 import axios from "axios";
 import { type User } from "@prisma/client";
-import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 const signUp = async (data: SignUpSchema) => {
   try {
-    const { data: user } = await axios.post<User>("/api/auth", data);
-    await signIn("credentials", {
-      ...user,
-      password: data.password,
-      redirect: false,
-      callbackUrl: "/",
-    });
+    await axios.post<User>("/api/auth", data);
   } catch (error) {
     throw error;
   }
 };
 
 const SignUp: NextPage = () => {
+  const [error, setError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -36,8 +32,21 @@ const SignUp: NextPage = () => {
     mode: "onTouched",
   });
 
+  const { push } = useRouter();
+
   const onSubmit = async (data: SignUpSchema) => {
-    await signUp(data);
+    await signUp(data)
+      .then(() => push("/auth/sign-in"))
+      .catch((e) => {
+        if (axios.isAxiosError(e)) {
+          if (e.response && e.response.data) {
+            setError(e.response.data as string);
+          } else {
+            console.log(e);
+            setError("Something went wrong");
+          }
+        }
+      });
   };
 
   return (
@@ -46,6 +55,7 @@ const SignUp: NextPage = () => {
         Create an account
       </h2>
       <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
+        {error && <Error message={error} />}
         <div>
           <label htmlFor="email">Email</label>
           <input

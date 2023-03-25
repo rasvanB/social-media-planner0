@@ -1,3 +1,4 @@
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import { type NextRequest } from "next/server";
 import { prisma } from "~/server/db";
 import { signUpSchema } from "~/types/authTypes";
@@ -29,7 +30,9 @@ export async function POST(req: NextRequest) {
     });
     return new Response(JSON.stringify(user), { status: 200 });
   } catch (error) {
-    console.log(error);
+    if (error instanceof PrismaClientKnownRequestError) {
+      return new Response(error.message, { status: 500 });
+    }
     return new Response("Error", { status: 500 });
   }
 }
