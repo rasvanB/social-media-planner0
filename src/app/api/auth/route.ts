@@ -7,16 +7,24 @@ export async function POST(req: NextRequest) {
   try {
     const result = signUpSchema.safeParse(await req.json());
     if (!result.success) {
-      console.log(result.error);
       return new Response("Invalid credentials", { status: 400 });
     }
     const { email, password, username } = result.data;
+
+    const userExists = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (userExists) {
+      return new Response("User already exists", { status: 400 });
+    }
+
     const hashedPassword = hashPassword(password);
     const user = await prisma.user.create({
       data: {
         email,
+        username,
         password: hashedPassword,
-        name: username,
       },
     });
     return new Response(JSON.stringify(user), { status: 200 });
