@@ -7,7 +7,7 @@ import {
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "~/server/db";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { signInSchema } from "~/types/authTypes";
+import { signInSchema } from "~/types/auth-types";
 import { hashPassword } from "~/utils/hash";
 
 declare module "next-auth" {
@@ -53,6 +53,7 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: "/auth/sign-in",
+    error: "/",
   },
   callbacks: {
     jwt: ({ token, user }) => {
@@ -70,7 +71,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   jwt: {
-    maxAge: 15 * 24 * 60 * 60,
+    maxAge: 24 * 60 * 60,
   },
   session: {
     strategy: "jwt",

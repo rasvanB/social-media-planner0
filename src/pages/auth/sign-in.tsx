@@ -3,7 +3,7 @@ import { type NextPage } from "next";
 import { useForm } from "react-hook-form";
 import AuthLayout from "~/components/auth-layout";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type SignInSchema, signInSchema } from "~/types/authTypes";
+import { type SignInSchema, signInSchema } from "~/types/auth-types";
 import { type SubmitHandler } from "react-hook-form/dist/types";
 import { inputStyles } from "~/styles/input-styles";
 import { signIn } from "next-auth/react";

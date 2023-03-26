@@ -5,7 +5,7 @@ import { type NextPage } from "next";
 import { useForm } from "react-hook-form";
 import AuthLayout from "~/components/auth-layout";
 import { inputStyles } from "~/styles/input-styles";
-import { signUpSchema, type SignUpSchema } from "~/types/authTypes";
+import { signUpSchema, type SignUpSchema } from "~/types/auth-types";
 import Error from "~/components/error";
 import Button from "~/components/button";
 import axios from "axios";

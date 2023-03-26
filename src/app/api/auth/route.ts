@@ -1,7 +1,7 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { type NextRequest } from "next/server";
 import { prisma } from "~/server/db";
-import { signUpSchema } from "~/types/authTypes";
+import { signUpSchema } from "~/types/auth-types";
 import { hashPassword } from "~/utils/hash";
 
 export async function POST(req: NextRequest) {
