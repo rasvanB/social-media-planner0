@@ -26,7 +26,6 @@ const SignIn: NextPage = () => {
   });
 
   const { push } = useRouter();
-  console.log(errors, isValid);
 
   const onSubmit: SubmitHandler<SignInSchema> = async (data) => {
     await signIn("credentials", {

@@ -12,6 +12,8 @@ import { hashPassword } from "~/utils/hash";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
+    id: string;
+    email: string;
     user: {
       id: string;
       username: string;
@@ -30,7 +32,6 @@ export const authOptions: NextAuthOptions = {
         if (!result.success) {
           throw new Error("Invalid credentials");
         }
-        console.log("result", result.data);
         const { email, password } = result.data;
         const user = await prisma.user.findUnique({
           where: { email },
@@ -52,6 +53,27 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: "/auth/sign-in",
+  },
+  callbacks: {
+    jwt: ({ token, user }) => {
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+      }
+      return token;
+    },
+    session: ({ session, token }) => {
+      if (token) {
+        session.id = token.id as string;
+      }
+      return session;
+    },
+  },
+  jwt: {
+    maxAge: 15 * 24 * 60 * 60,
+  },
+  session: {
+    strategy: "jwt",
   },
 };
 
