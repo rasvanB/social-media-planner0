@@ -55,6 +55,7 @@ const SignIn: NextPage = () => {
             type="email"
             {...register("email")}
             className={inputStyles({ intent: "auth" })}
+            autoComplete="email"
           />
           <ErrorMessage
             errors={errors}
@@ -68,6 +69,7 @@ const SignIn: NextPage = () => {
             type="password"
             {...register("password")}
             className={inputStyles({ intent: "auth" })}
+            autoComplete="current-password"
           />
           <ErrorMessage
             errors={errors}

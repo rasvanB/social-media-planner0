@@ -62,6 +62,7 @@ const SignUp: NextPage = () => {
             type="email"
             {...register("email")}
             className={inputStyles({ intent: "auth" })}
+            autoComplete="email"
           />
           <ErrorMessage
             errors={errors}
@@ -75,6 +76,7 @@ const SignUp: NextPage = () => {
             type="text"
             {...register("username")}
             className={inputStyles({ intent: "auth" })}
+            autoComplete="username"
           />
           <ErrorMessage
             errors={errors}
@@ -88,6 +90,7 @@ const SignUp: NextPage = () => {
             type="password"
             {...register("password")}
             className={inputStyles({ intent: "auth" })}
+            autoComplete="new-password"
           />
           <ErrorMessage
             errors={errors}
@@ -101,6 +104,7 @@ const SignUp: NextPage = () => {
             type="password"
             {...register("confirmPassword")}
             className={inputStyles({ intent: "auth" })}
+            autoComplete="new-password"
           />
           <ErrorMessage
             errors={errors}
