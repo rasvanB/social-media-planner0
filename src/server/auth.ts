@@ -9,6 +9,7 @@ import { prisma } from "~/server/db";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { signInSchema } from "~/types/auth-types";
 import { hashPassword } from "~/utils/hash";
+import { env } from "~/env.mjs";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -22,6 +23,7 @@ declare module "next-auth" {
   }
 }
 export const authOptions: NextAuthOptions = {
+  secret: env.NEXTAUTH_SECRET,
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
