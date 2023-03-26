@@ -14,14 +14,25 @@ import { env } from "~/env.mjs";
 declare module "next-auth" {
   interface Session extends DefaultSession {
     id: string;
+    user: User & DefaultSession["user"];
+  }
+  interface User {
+    id: string;
+    username: string;
     email: string;
-    user: {
-      id: string;
-      username: string;
-      email: string;
-    } & DefaultSession["user"];
+    image: string | null;
   }
 }
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    id: string;
+    email: string;
+    name: string;
+    image: string | null;
+  }
+}
+
 export const authOptions: NextAuthOptions = {
   secret: env.NEXTAUTH_SECRET,
   adapter: PrismaAdapter(prisma),
@@ -49,6 +60,7 @@ export const authOptions: NextAuthOptions = {
           id: user.id,
           email: user.email,
           username: user.username,
+          image: user.image,
         };
       },
     }),
@@ -62,12 +74,20 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id = user.id;
         token.email = user.email;
+        token.name = user.username;
+        token.image = user.image;
       }
       return token;
     },
     session: ({ session, token }) => {
       if (token) {
-        session.id = token.id as string;
+        session.id = token.id;
+        session.user = {
+          id: token.id,
+          email: token.email,
+          username: token.name,
+          image: token.image,
+        };
       }
       return session;
     },
