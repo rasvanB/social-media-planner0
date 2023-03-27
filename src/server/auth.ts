@@ -41,10 +41,14 @@ declare module "next-auth/jwt" {
 const adapter = PrismaAdapter(prisma);
 const _linkAccount = adapter.linkAccount;
 
+// TODO: handle twitter too
 adapter.linkAccount = async (account) => {
   if (account.provider === "instagram") {
     await _linkAccount({ ...account, user_id: undefined });
-  } else await _linkAccount(account);
+  } else {
+    console.log("linking account", account);
+    await _linkAccount(account);
+  }
 };
 
 export const authOptions: NextAuthOptions = {
