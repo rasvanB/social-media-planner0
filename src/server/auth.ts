@@ -13,6 +13,7 @@ import InstagramProvider from "next-auth/providers/instagram";
 import { signInSchema } from "~/types/auth-types";
 import { hashPassword } from "~/utils/hash";
 import { env } from "~/env.mjs";
+import { AdapterAccount } from "next-auth/adapters";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -40,8 +41,16 @@ const adapter = PrismaAdapter(prisma);
 const _linkAccount = adapter.linkAccount;
 
 adapter.linkAccount = async (account) => {
-  console.log("linkAccount", account);
-  await _linkAccount(account);
+  if (account.provider === "instagram") {
+    const newAccount: AdapterAccount = {
+      providerAccountId: account.providerAccountId,
+      type: "oauth",
+      provider: "instagram",
+      access_token: account.access_token,
+      userId: account.userId,
+    };
+    await _linkAccount(newAccount);
+  } else await _linkAccount(account);
 };
 
 export const authOptions: NextAuthOptions = {
