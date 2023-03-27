@@ -7,6 +7,7 @@ import {
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "~/server/db";
 import CredentialsProvider from "next-auth/providers/credentials";
+import FacebookProvider from "next-auth/providers/facebook";
 import { signInSchema } from "~/types/auth-types";
 import { hashPassword } from "~/utils/hash";
 import { env } from "~/env.mjs";
@@ -63,6 +64,10 @@ export const authOptions: NextAuthOptions = {
           image: user.image,
         };
       },
+    }),
+    FacebookProvider({
+      clientId: env.FACEBOOK_CLIENT_ID,
+      clientSecret: env.FACEBOOK_CLIENT_SECRET,
     }),
   ],
   pages: {
