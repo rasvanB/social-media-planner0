@@ -42,9 +42,7 @@ const _linkAccount = adapter.linkAccount;
 
 adapter.linkAccount = async (account) => {
   if (account.provider === "instagram") {
-    const { user_id, ...rest } = account;
-    const newAccount = { ...rest };
-    await _linkAccount(newAccount);
+    await _linkAccount({ ...account, user_id: undefined });
   } else await _linkAccount(account);
 };
 
