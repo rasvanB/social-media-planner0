@@ -8,8 +8,13 @@ type Props = {
 };
 
 const fetchAccounts = async (userID: string) => {
-  const { data } = await axios.get<Account[]>(`/api/user/${userID}/accounts`);
-  return data;
+  try {
+    const { data } = await axios.get<Account[]>(`/api/user/${userID}/accounts`);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 };
 
 const Platforms = ({ userID }: Props) => {
@@ -17,8 +22,17 @@ const Platforms = ({ userID }: Props) => {
     fetchAccounts(userID)
   );
 
-  console.log(data, status);
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
 
-  return <div>Platforms</div>;
+  return (
+    <div>
+      Platforms
+      {data?.map((account) => (
+        <div key={account.id}>{account.provider}</div>
+      ))}
+    </div>
+  );
 };
 export default Platforms;
