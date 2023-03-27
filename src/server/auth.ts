@@ -13,7 +13,7 @@ import InstagramProvider from "next-auth/providers/instagram";
 import { signInSchema } from "~/types/auth-types";
 import { hashPassword } from "~/utils/hash";
 import { env } from "~/env.mjs";
-import { AdapterAccount } from "next-auth/adapters";
+import { type AdapterAccount } from "next-auth/adapters";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -42,13 +42,8 @@ const _linkAccount = adapter.linkAccount;
 
 adapter.linkAccount = async (account) => {
   if (account.provider === "instagram") {
-    const newAccount: AdapterAccount = {
-      providerAccountId: account.providerAccountId,
-      type: "oauth",
-      provider: "instagram",
-      access_token: account.access_token,
-      userId: account.userId,
-    };
+    const { user_id, ...rest } = account;
+    const newAccount = { ...rest };
     await _linkAccount(newAccount);
   } else await _linkAccount(account);
 };
