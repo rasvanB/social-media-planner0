@@ -36,9 +36,17 @@ declare module "next-auth/jwt" {
   }
 }
 
+const adapter = PrismaAdapter(prisma);
+const _linkAccount = adapter.linkAccount;
+
+adapter.linkAccount = async (account) => {
+  console.log("linkAccount", account);
+  await _linkAccount(account);
+};
+
 export const authOptions: NextAuthOptions = {
   secret: env.NEXTAUTH_SECRET,
-  adapter: PrismaAdapter(prisma),
+  adapter: adapter,
   providers: [
     CredentialsProvider({
       id: "credentials",
@@ -78,6 +86,7 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: "/auth/sign-in",
+    newUser: "/auth/sign-up",
     error: "/",
   },
   callbacks: {
