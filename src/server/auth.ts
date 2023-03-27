@@ -7,13 +7,14 @@ import {
 } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "~/server/db";
-import CredentialsProvider from "next-auth/providers/credentials";
-import FacebookProvider from "next-auth/providers/facebook";
-import InstagramProvider from "next-auth/providers/instagram";
 import { signInSchema } from "~/types/auth-types";
 import { hashPassword } from "~/utils/hash";
 import { env } from "~/env.mjs";
-import { type AdapterAccount } from "next-auth/adapters";
+
+import CredentialsProvider from "next-auth/providers/credentials";
+import FacebookProvider from "next-auth/providers/facebook";
+import InstagramProvider from "next-auth/providers/instagram";
+import TwitterProvider from "next-auth/providers/twitter";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -84,6 +85,10 @@ export const authOptions: NextAuthOptions = {
     InstagramProvider({
       clientId: env.INSTAGRAM_CLIENT_ID,
       clientSecret: env.INSTAGRAM_CLIENT_SECRET,
+    }),
+    TwitterProvider({
+      clientId: env.TWITTER_CLIENT_ID,
+      clientSecret: env.TWITTER_CLIENT_SECRET,
     }),
   ],
   pages: {

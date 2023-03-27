@@ -34,8 +34,11 @@ const Platforms = ({ userID }: Props) => {
       {data?.map((account) => (
         <Platform key={account.id} account={account} />
       ))}
-      <button onClick={() => signIn("facebook")}>Connect Facebook</button>
-      <button onClick={() => signIn("instagram")}>Connect Instagram</button>
+      <div className="flex flex-col gap-2">
+        <button onClick={() => signIn("facebook")}>Connect Facebook</button>
+        <button onClick={() => signIn("instagram")}>Connect Instagram</button>
+        <button onClick={() => signIn("twitter")}>Connect Twitter</button>
+      </div>
     </div>
   );
 };
