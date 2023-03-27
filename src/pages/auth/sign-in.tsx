@@ -12,6 +12,7 @@ import Error from "~/components/error";
 import Button from "~/components/button";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const SignIn: NextPage = () => {
   const [error, setError] = useState<string | null>(null);
@@ -34,7 +35,7 @@ const SignIn: NextPage = () => {
     }).then(async (res) => {
       if (res) {
         if (res.ok) {
-          await push("/");
+          await push("/app");
         } else {
           setError(res.error || "Something went wrong");
         }
@@ -79,6 +80,12 @@ const SignIn: NextPage = () => {
         </div>
         <Button role="auth" text="Sign In" type="submit" disabled={!isValid} />
       </form>
+      <div className="font-regular mt-3 text-gray-900">
+        {"Don't have an account?"}
+        <Link href="/auth/sign-up" className="ml-1 font-medium text-blue-700">
+          Sign up
+        </Link>
+      </div>
     </AuthLayout>
   );
 };

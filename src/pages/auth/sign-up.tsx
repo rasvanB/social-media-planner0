@@ -12,6 +12,7 @@ import axios from "axios";
 import { type User } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Link from "next/link";
 
 const signUp = async (data: SignUpSchema) => {
   try {
@@ -114,6 +115,12 @@ const SignUp: NextPage = () => {
         </div>
         <Button role="auth" text="Sign Up" type="submit" disabled={!isValid} />
       </form>
+      <div className="font-regular mt-3 text-gray-900">
+        {"Already have an account?"}
+        <Link href="/auth/sign-in" className="ml-1 font-medium text-blue-700">
+          Sign in
+        </Link>
+      </div>
     </AuthLayout>
   );
 };
