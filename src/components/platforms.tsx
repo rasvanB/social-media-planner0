@@ -2,6 +2,8 @@
 import { type Account } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Platform from "~/components/platform";
+import { signIn } from "next-auth/react";
 
 type Props = {
   userID: string;
@@ -30,8 +32,10 @@ const Platforms = ({ userID }: Props) => {
     <div>
       Platforms
       {data?.map((account) => (
-        <div key={account.id}>{account.provider}</div>
+        <Platform key={account.id} account={account} />
       ))}
+      <button onClick={() => signIn("facebook")}>Connect Facebook</button>
+      <button onClick={() => signIn("instagram")}>Connect Instagram</button>
     </div>
   );
 };
