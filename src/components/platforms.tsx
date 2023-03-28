@@ -31,9 +31,11 @@ const Platforms = ({ userID }: Props) => {
   return (
     <div>
       Platforms
-      {data?.map((account) => (
-        <Platform key={account.id} account={account} />
-      ))}
+      <div className="flex items-center justify-evenly gap-2">
+        {data?.map((account) => (
+          <Platform key={account.id} account={account} />
+        ))}
+      </div>
       <div className="flex flex-col gap-2">
         <button onClick={() => signIn("facebook")}>Connect Facebook</button>
         <button onClick={() => signIn("instagram")}>Connect Instagram</button>
