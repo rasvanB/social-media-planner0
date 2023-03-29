@@ -12,6 +12,10 @@ export const buttonStyles = cva("", {
   variants: {
     intent: {
       auth: "group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:hover:bg-indigo-600",
+      connected:
+        "flex items-center justify-center rounded-full px-2 py-1 text-green-500 w-full outline outline-1 outline-black/10",
+      connect:
+        "flex items-center justify-center rounded-full px-2 py-1 text-white bg-[#1096FC] hover:bg-[#36a3f7] w-full",
     },
   },
 });
