@@ -2,8 +2,7 @@
 import { type Account } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import Platform from "~/components/platform";
-import { signIn } from "next-auth/react";
+import Platform, { platforms } from "~/components/platform";
 
 type Props = {
   userID: string;
@@ -29,17 +28,21 @@ const Platforms = ({ userID }: Props) => {
   }
 
   return (
-    <div>
+    <div className="text-center">
       Platforms
-      <div className="flex items-center justify-evenly gap-2">
-        {data?.map((account) => (
-          <Platform key={account.id} account={account} />
-        ))}
-      </div>
-      <div className="flex flex-col gap-2">
-        <button onClick={() => signIn("facebook")}>Connect Facebook</button>
-        <button onClick={() => signIn("instagram")}>Connect Instagram</button>
-        <button onClick={() => signIn("twitter")}>Connect Twitter</button>
+      <div className="mt-2 flex items-center justify-evenly gap-2">
+        {platforms.map((platform) => {
+          const account = data?.find(
+            (account) => account.provider === platform
+          );
+          return (
+            <Platform
+              key={platform}
+              provider={platform}
+              connected={!!account}
+            />
+          );
+        })}
       </div>
     </div>
   );
