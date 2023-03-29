@@ -16,10 +16,9 @@ const App: NextPage = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <h1>App</h1>
-      <p>{data.user.username}</p>
+      <p>connected as {data.user.username}</p>
       <button
-        className="p-2 outline outline-1 outline-neutral-300"
+        className="rounded bg-blue-500 p-2  font-medium text-white outline outline-1"
         onClick={() => signOut()}
       >
         Sign out
