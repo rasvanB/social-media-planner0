@@ -78,6 +78,12 @@ const SignIn: NextPage = () => {
             render={({ message }) => <Error message={message} />}
           />
         </div>
+        <Link
+          href="/auth/reset-password"
+          className="text-sm font-medium text-blue-700"
+        >
+          Forgot Password?
+        </Link>
         <Button role="auth" text="Sign In" type="submit" disabled={!isValid} />
       </form>
       <div className="font-regular mt-3 text-gray-900">
