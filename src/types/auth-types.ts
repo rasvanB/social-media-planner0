@@ -1,5 +1,19 @@
 import { z } from "zod";
 
+export const resetPasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters long" }),
+    confirmPassword: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters long" }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
 export const signInSchema = z
   .object({
     email: z.string().email(),
@@ -26,3 +40,4 @@ export const signUpSchema = signInSchema
 
 export type SignUpSchema = z.infer<typeof signUpSchema>;
 export type SignInSchema = z.infer<typeof signInSchema>;
+export type ResetPasswordSchema = z.infer<typeof resetPasswordSchema>;
