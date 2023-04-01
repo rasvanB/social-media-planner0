@@ -39,4 +39,32 @@ export const ConnectButton = ({ onClick }: { onClick: () => void }) => {
   );
 };
 
+export const ScheduleButton = ({ onClick }: { onClick?: () => void }) => {
+  return (
+    <Button role="schedule" onClick={onClick}>
+      <Icon icon="heroicons:pencil-square-20-solid" className="mr-2 text-xl" />
+      <span className="text-sm font-medium leading-tight">
+        Schedule a new post
+      </span>
+    </Button>
+  );
+};
+
+export const SettingsButton = ({
+  icon,
+  text,
+  onClick,
+}: {
+  icon: string;
+  text: string;
+  onClick?: () => void;
+}) => {
+  return (
+    <button className={buttonStyles({ intent: "account" })} onClick={onClick}>
+      <span>{text}</span>
+      <Icon icon={icon} className="text-lg" />
+    </button>
+  );
+};
+
 export default Button;
