@@ -17,7 +17,7 @@ export const buttonStyles = cva("", {
       connect:
         "flex items-center justify-center rounded-full px-2 py-1 text-white bg-[#1096FC] hover:bg-[#36a3f7] w-full",
       schedule:
-        "flex items-center justify-center w-fit px-3 py-2.5 rounded-md text-white bg-[#6365EF] hover:bg-[#6f71eb]",
+        "flex items-center justify-center w-fit px-4 py-2.5 rounded-md text-white bg-[#6365EF] hover:bg-[#6f71eb]",
       account:
         "flex w-full items-center justify-between px-4 py-2 font-medium text-sm text-[#666] hover:bg-[#fcfcfc] hover:text-black",
     },
