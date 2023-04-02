@@ -5,6 +5,8 @@ import { useSession } from "next-auth/react";
 import ButtonGroup from "~/components/button-group";
 import Modal from "~/components/modal";
 import Nav from "~/components/nav";
+import Platforms from "~/components/platforms";
+import PostForm from "~/components/post-form";
 import { createModalAtom } from "~/utils/jotai";
 
 const App: NextPage = () => {
@@ -25,11 +27,14 @@ const App: NextPage = () => {
         <Modal
           title="Schedule a post"
           onClose={() => setCreateModalOpen(false)}
-        ></Modal>
+        >
+          <PostForm />
+        </Modal>
       )}
       <Nav />
       <ButtonGroup />
       <div className="my-3 h-px w-full bg-[#DBDBDB]" />
+      <Platforms userID={data.user.id} />
     </div>
   );
 };
