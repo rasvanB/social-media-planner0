@@ -1,21 +1,18 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Icon } from "@iconify/react";
-import { useAtom } from "jotai";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
-import { createModalAtom } from "~/utils/jotai";
 import { SettingsButton } from "./button";
 
 const Nav = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [, setCreateModalOpen] = useAtom(createModalAtom);
   const { data } = useSession();
 
   if (!data) return null;
 
   return (
-    <div className="flex items-center justify-between py-2">
+    <div className="flex items-center justify-between py-2 ">
       <div className="relative flex items-center">
         <Image
           src={data.user.image || "/default-profile.jpg"}
@@ -45,11 +42,7 @@ const Nav = () => {
           <div className="z-10 px-4 py-1 text-sm text-[#888]">
             {data.user.email}
           </div>
-          <SettingsButton
-            icon="clarity:cog-line"
-            text="Account settings"
-            onClick={() => setCreateModalOpen(true)}
-          />
+          <SettingsButton icon="clarity:cog-line" text="Account settings" />
           <SettingsButton
             icon="ion:log-out-outline"
             text="Log out"
@@ -62,7 +55,7 @@ const Nav = () => {
         width="144"
         height="45"
         alt="logo"
-        className="pointer-events-none h-[32px] w-[100px] select-none sm:h-[45px] sm:w-[144px]"
+        className="pointer-events-none absolute top-2 left-1/2 h-[32px] w-[100px] -translate-x-1/2 transform select-none sm:h-[45px] sm:w-[144px]"
       />
       <div className="flex h-fit items-center justify-center rounded-full bg-[#EDF2FF] px-1 py-1">
         <Icon icon="ph:bell-bold" className=" text-[20px] text-[#2F2E6D]" />

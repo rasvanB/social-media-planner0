@@ -22,7 +22,7 @@ const App: NextPage = () => {
   }
 
   return (
-    <div className="h-screen w-screen px-2 sm:px-10 lg:px-40">
+    <div className="flex h-screen w-screen flex-col">
       {createModalOpen && (
         <Modal
           title="Schedule a post"
@@ -31,10 +31,14 @@ const App: NextPage = () => {
           <PostForm />
         </Modal>
       )}
-      <Nav />
-      <ButtonGroup />
-      <div className="my-3 h-px w-full bg-[#DBDBDB]" />
-      <Platforms userID={data.user.id} />
+      <div className="px-2 sm:px-10 lg:px-40">
+        <Nav />
+        <ButtonGroup />
+      </div>
+      <div className="mt-3 h-px w-full bg-[#DBDBDB]" />
+      <div className="h-full w-full bg-[#ECECEC]">
+        <Platforms userID={data.user.id} />
+      </div>
     </div>
   );
 };
