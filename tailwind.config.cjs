@@ -6,6 +6,9 @@ const config = {
       fontFamily: {
         inter: ["Inter", "sans-serif"],
       },
+      screens: {
+        xs: "475px",
+      },
     },
   },
   plugins: [],
