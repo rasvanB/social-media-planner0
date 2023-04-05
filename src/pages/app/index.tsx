@@ -24,7 +24,7 @@ const App: NextPage = () => {
       {createModalOpen && (
         <SchedulePostModal onClose={() => setCreateModalOpen(false)} />
       )}
-      <div className="px-2 sm:px-10 lg:px-40">
+      <div className="px-2 sm:px-10 lg:px-40 xl:px-60">
         <Nav />
         <ButtonGroup />
       </div>
