@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react";
-import { type PropsWithChildren } from "react";
+import { useState, type PropsWithChildren } from "react";
+import { type ValidPostState } from "~/types/post";
 import PostForm from "./post-form";
 
 type ModalProps = {
@@ -10,7 +11,7 @@ type ModalProps = {
 const Modal = ({ title, children, onClose }: ModalProps) => {
   return (
     <div className="fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-black/30">
-      <div className="relative w-full rounded-xl bg-white py-2 shadow-xl xs:w-fit xs:min-w-[300px]">
+      <div className="relative w-full rounded-xl bg-white pt-2 shadow-xl xs:w-fit xs:min-w-[300px]">
         <div className="flex w-full items-center justify-between px-4">
           {title && (
             <>
@@ -33,10 +34,23 @@ const Modal = ({ title, children, onClose }: ModalProps) => {
   );
 };
 
+type Step = "form" | "upload";
 export const SchedulePostModal = ({ onClose }: ModalProps) => {
+  const [postData, setPostData] = useState<ValidPostState | null>(null);
+  const [step, setStep] = useState<Step>("form");
+
   return (
     <Modal title="Schedule a Post" onClose={onClose}>
-      <PostForm />
+      {step === "form" ? (
+        <PostForm
+          onPost={(v) => {
+            setStep("upload");
+            setPostData(v);
+          }}
+        />
+      ) : (
+        <div>upload {postData?.file.name}</div>
+      )}
     </Modal>
   );
 };
