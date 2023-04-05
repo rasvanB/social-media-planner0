@@ -1,24 +1,8 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Icon } from "@iconify/react";
 import { signIn } from "next-auth/react";
+import { capitalize, icon, type Platform } from "~/utils/platform";
 import { ConnectButton, ConnectedButton } from "./button";
-
-export const platforms = ["facebook", "instagram", "twitter"] as const;
-
-type Platform = (typeof platforms)[number];
-
-const platformIcons: Record<Platform, string> = {
-  facebook: "logos:facebook",
-  instagram: "skill-icons:instagram",
-  twitter: "logos:twitter",
-};
-
-const icon = (platform: string) => {
-  if (platform.includes(platform)) return platformIcons[platform as Platform];
-  return "logos:unknown";
-};
-
-const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
 const Platform = ({
   provider,

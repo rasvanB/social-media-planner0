@@ -20,6 +20,7 @@ export const buttonStyles = cva("", {
         "flex items-center justify-center w-fit transition-all duration-100 active:ring-2 active:ring-offset-2 active:ring-[#7d7ff1]  px-4 py-2.5 rounded-md text-white bg-[#6365EF] hover:bg-[#6f71eb]",
       account:
         "flex w-full items-center justify-between px-4 py-2 font-medium text-sm text-[#666] hover:bg-[#fcfcfc] hover:text-black",
+      post: "flex items-center justify-center w-fit transition-all duration-100 active:ring-2 active:ring-offset-2 active:ring-[#7d7ff1] px-4 py-1.5 rounded-[6px] text-white bg-[#6365EF] hover:bg-[#6f71eb]",
     },
   },
 });
