@@ -17,7 +17,7 @@ const defaultData: PostState = {
   platforms: [],
   message: "",
   file: null,
-  scheduledAt: new Date().toISOString().slice(0, 19),
+  scheduledAt: new Date().toISOString().slice(0, 16),
 };
 
 const PostForm = ({ onPost }: Props) => {
@@ -46,9 +46,11 @@ const PostForm = ({ onPost }: Props) => {
       setError("No platforms available");
       return;
     }
+    setError("");
   }, [options, status]);
 
   const handlePost = () => {
+    console.log(data);
     const result = postSchema.safeParse(data);
     if (!result.success) {
       setError(result.error.errors[0]?.message ?? "Invalid data");
@@ -88,7 +90,7 @@ const PostForm = ({ onPost }: Props) => {
           onChange={(e) =>
             setData({
               ...data,
-              scheduledAt: new Date(e.target.value).toISOString().slice(0, 19),
+              scheduledAt: e.target.value,
             })
           }
           value={data.scheduledAt}
