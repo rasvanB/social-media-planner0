@@ -32,6 +32,10 @@ export const postSchema = z
   .refine((data) => data.file.size <= 5 * 1024 * 1024, {
     message: "File size must be less than 5MB",
     path: ["file"],
+  })
+  .refine((data) => data.scheduledAt > Date.now(), {
+    message: "Please select a future date",
+    path: ["scheduledAt"],
   });
 
 export type ValidPostState = z.infer<typeof postSchema>;
