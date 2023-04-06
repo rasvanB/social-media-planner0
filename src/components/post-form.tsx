@@ -50,7 +50,6 @@ const PostForm = ({ onPost }: Props) => {
   }, [options, status]);
 
   const handlePost = () => {
-    console.log(data);
     const result = postSchema.safeParse(data);
     if (!result.success) {
       setError(result.error.errors[0]?.message ?? "Invalid data");
@@ -87,13 +86,14 @@ const PostForm = ({ onPost }: Props) => {
         <input
           type="datetime-local"
           className="w-full rounded-md border border-[#cccccc] px-3 py-2 text-sm text-black/80 focus:border-2 focus:border-blue-500 focus:outline-none"
-          onChange={(e) =>
+          onChange={(e) => {
             setData({
               ...data,
               scheduledAt: e.target.value,
-            })
-          }
+            });
+          }}
           value={data.scheduledAt}
+          min={new Date().toISOString().slice(0, 16)}
         />
         <h4 className="mt-3 mb-2 text-sm font-medium leading-none text-[#414141]">
           Message:

@@ -44,7 +44,7 @@ export const ScheduleButton = ({ onClick }: { onClick?: () => void }) => {
     <Button role="schedule" onClick={onClick}>
       <Icon icon="heroicons:pencil-square-20-solid" className="mr-2 text-xl" />
       <span className="text-sm font-medium leading-tight">
-        Schedule a new post
+        Create a new post
       </span>
     </Button>
   );

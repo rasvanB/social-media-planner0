@@ -40,7 +40,7 @@ export const SchedulePostModal = ({ onClose }: ModalProps) => {
   const [step, setStep] = useState<Step>("form");
 
   return (
-    <Modal title="Schedule a Post" onClose={onClose}>
+    <Modal title="Create a Post" onClose={onClose}>
       {step === "form" ? (
         <PostForm
           onPost={(v) => {
