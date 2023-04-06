@@ -8,6 +8,7 @@ import { postSchema, type ValidPostState, type PostState } from "~/types/post";
 import { isFileImage, isFileVideo } from "~/utils/post";
 import usePlatforms from "~/hooks/usePlatforms";
 import { capitalize } from "~/utils/platform";
+import { format } from "date-fns";
 
 type Props = {
   onPost: (data: ValidPostState) => void;
@@ -17,8 +18,10 @@ const defaultData: PostState = {
   platforms: [],
   message: "",
   file: null,
-  scheduledAt: new Date().toISOString().slice(0, 16),
+  scheduledAt: Date.now(),
 };
+
+const getLocalString = (date: Date) => format(date, "yyyy-MM-dd'T'HH:mm");
 
 const PostForm = ({ onPost }: Props) => {
   const [error, setError] = useState("");
@@ -59,6 +62,7 @@ const PostForm = ({ onPost }: Props) => {
     onPost(result.data);
   };
 
+  console.log(data);
   return (
     <div>
       <div className="px-4">
@@ -89,11 +93,13 @@ const PostForm = ({ onPost }: Props) => {
           onChange={(e) => {
             setData({
               ...data,
-              scheduledAt: e.target.value,
+              scheduledAt:
+                e.target.valueAsNumber +
+                new Date().getTimezoneOffset() * 60 * 1000,
             });
           }}
-          value={data.scheduledAt}
-          min={new Date().toISOString().slice(0, 16)}
+          value={getLocalString(new Date(data.scheduledAt))}
+          min={getLocalString(new Date())}
         />
         <h4 className="mt-3 mb-2 text-sm font-medium leading-none text-[#414141]">
           Message:

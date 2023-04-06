@@ -11,9 +11,6 @@ const customFileSchema = z.custom<File>(
   { message: "Please select a file" }
 );
 
-const dateRegex =
-  /^(\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])T([01]\d|2[0-3]):([0-5]\d)$/;
-
 export const postSchema = z
   .object({
     platforms: z
@@ -26,11 +23,7 @@ export const postSchema = z
       })
       .max(280, { message: "Message must be less than 280 characters" }),
     file: customFileSchema,
-    scheduledAt: z
-      .string({ required_error: "Please enter a date and time" })
-      .regex(dateRegex, {
-        message: "Please enter a valid date and time",
-      }),
+    scheduledAt: z.number().min(0, { message: "Please select a valid date" }),
   })
   .refine((data) => isFileImage(data.file) || isFileVideo(data.file), {
     message: "File must be an image or video",
