@@ -43,9 +43,9 @@ export const SchedulePostModal = ({ onClose }: ModalProps) => {
     <Modal title="Create a Post" onClose={onClose}>
       {step === "form" ? (
         <PostForm
-          onPost={(v) => {
+          onPost={(post) => {
             setStep("upload");
-            setPostData(v);
+            setPostData(post);
           }}
         />
       ) : (

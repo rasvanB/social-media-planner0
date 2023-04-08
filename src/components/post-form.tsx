@@ -62,7 +62,6 @@ const PostForm = ({ onPost }: Props) => {
     onPost(result.data);
   };
 
-  console.log(data);
   return (
     <div>
       <div className="px-4">
