@@ -7,7 +7,6 @@ const fetchAccounts = async () => {
     const { data } = await axios.get<Account[]>(`/api/me/accounts`);
     return data;
   } catch (error) {
-    console.log(error);
     return [];
   }
 };

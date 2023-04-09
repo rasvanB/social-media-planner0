@@ -7,7 +7,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const data = await getServerAuthSession({ req, res });
       if (!data) {
-        return res.status(401).end();
+        return res.status(401).json({ message: "Unauthorized" });
       }
       const user = await prisma.user.findUnique({
         where: { id: data.user.id },
@@ -23,7 +23,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(500).json({ message: "Error" });
     }
   }
-  return res.status(405).end();
+  return res.status(405).json({ message: "Method not allowed" });
 };
 
 export default handler;
