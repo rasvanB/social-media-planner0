@@ -49,7 +49,10 @@ export const SchedulePostModal = ({ onClose }: ModalProps) => {
           }}
         />
       ) : (
-        <div>upload {postData?.file.name}</div>
+        <div className="flex items-center gap-2 px-4 py-3">
+          <Icon icon="mdi:check-circle" className="text-4xl text-green-500" />
+          Your post has been scheduled successfully!
+        </div>
       )}
     </Modal>
   );
