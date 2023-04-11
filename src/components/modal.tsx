@@ -34,19 +34,24 @@ const Modal = ({ title, children, onClose }: ModalProps) => {
   );
 };
 
-type Step = "form" | "upload";
+type State =
+  | {
+      step: "form";
+      postData: null;
+    }
+  | {
+      step: "upload";
+      postData: ValidPostState;
+    };
+
 export const SchedulePostModal = ({ onClose }: ModalProps) => {
-  const [postData, setPostData] = useState<ValidPostState | null>(null);
-  const [step, setStep] = useState<Step>("form");
+  const [state, setState] = useState<State>({ step: "form", postData: null });
 
   return (
     <Modal title="Create a Post" onClose={onClose}>
-      {step === "form" ? (
+      {state.step === "form" ? (
         <PostForm
-          onPost={(post) => {
-            setStep("upload");
-            setPostData(post);
-          }}
+          onPost={(post) => setState({ step: "upload", postData: post })}
         />
       ) : (
         <div className="flex items-center gap-2 px-4 py-3">
