@@ -1,12 +1,15 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Icon } from "@iconify/react";
+import { useAtom } from "jotai";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
+import { userSettingsAtom } from "~/utils/jotai";
 import { SettingsButton } from "./button";
 
 const Nav = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [, setSettingsModalOpen] = useAtom(userSettingsAtom);
   const { data } = useSession();
 
   if (!data) return null;
@@ -42,7 +45,11 @@ const Nav = () => {
           <div className="z-10 px-4 py-1 text-sm text-[#888]">
             {data.user.email}
           </div>
-          <SettingsButton icon="clarity:cog-line" text="Account settings" />
+          <SettingsButton
+            icon="clarity:cog-line"
+            text="Account settings"
+            onClick={() => setSettingsModalOpen(true)}
+          />
           <SettingsButton
             icon="ion:log-out-outline"
             text="Log out"

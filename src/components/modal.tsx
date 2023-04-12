@@ -72,4 +72,13 @@ export const SchedulePostModal = ({ onClose }: ModalProps) => {
     </Modal>
   );
 };
+
+export const UserSettingsModal = ({ onClose }: ModalProps) => {
+  return (
+    <Modal title="User Settings" onClose={onClose}>
+      <div className="px-4 py-3"></div>
+    </Modal>
+  );
+};
+
 export default Modal;

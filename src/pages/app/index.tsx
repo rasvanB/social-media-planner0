@@ -3,13 +3,14 @@ import { useAtom } from "jotai/react";
 import { type NextPage } from "next";
 import { useSession } from "next-auth/react";
 import ButtonGroup from "~/components/button-group";
-import { SchedulePostModal } from "~/components/modal";
+import { SchedulePostModal, UserSettingsModal } from "~/components/modal";
 import Nav from "~/components/nav";
-import { createModalAtom } from "~/utils/jotai";
+import { createModalAtom, userSettingsAtom } from "~/utils/jotai";
 
 const App: NextPage = () => {
   const { data, status } = useSession();
   const [createModalOpen, setCreateModalOpen] = useAtom(createModalAtom);
+  const [userSettingsOpen, setUserSettingsOpen] = useAtom(userSettingsAtom);
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -23,6 +24,9 @@ const App: NextPage = () => {
     <div className="flex h-screen w-screen flex-col">
       {createModalOpen && (
         <SchedulePostModal onClose={() => setCreateModalOpen(false)} />
+      )}
+      {userSettingsOpen && (
+        <UserSettingsModal onClose={() => setUserSettingsOpen(false)} />
       )}
       <div className="px-2 sm:px-10 lg:px-40 xl:px-60">
         <Nav />
