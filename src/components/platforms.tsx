@@ -10,9 +10,9 @@ const Platforms = () => {
   }
 
   return (
-    <div className="text-center">
-      Platforms
-      <div className="mt-2 flex items-center justify-evenly gap-2">
+    <div className="text-left font-medium text-black/80">
+      Connected platforms
+      <div className="mt-2 flex items-center justify-evenly gap-2 font-normal">
         {platforms.map((platform) => {
           const account = data?.find((a) => a.provider === platform);
           return (

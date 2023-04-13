@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import { useState, type PropsWithChildren } from "react";
 import { type ValidPostState } from "~/types/post";
+import Platforms from "./platforms";
 import PostForm from "./post-form";
 
 type ModalProps = {
@@ -76,7 +77,9 @@ export const SchedulePostModal = ({ onClose }: ModalProps) => {
 export const UserSettingsModal = ({ onClose }: ModalProps) => {
   return (
     <Modal title="User Settings" onClose={onClose}>
-      <div className="px-4 py-3"></div>
+      <div className="px-4 py-3">
+        <Platforms />
+      </div>
     </Modal>
   );
 };
