@@ -3,6 +3,7 @@ import { useState, type PropsWithChildren } from "react";
 import { type ValidPostState } from "~/types/post";
 import Platforms from "./platforms";
 import PostForm from "./post-form";
+import UploadPost from "./upload-post";
 
 type ModalProps = {
   onClose: () => void;
@@ -55,20 +56,7 @@ export const SchedulePostModal = ({ onClose }: ModalProps) => {
           onPost={(post) => setState({ step: "upload", postData: post })}
         />
       ) : (
-        <div className="px-4 py-3">
-          <div className="flex items-center gap-2">
-            <Icon icon="mdi:check-circle" className="text-4xl text-green-500" />
-            Your post has been scheduled successfully!
-          </div>
-          <div className="text-center">
-            <div className="text-sm text-black/70">
-              Time: {new Date(state.postData.scheduledAt).toUTCString()}
-            </div>
-            <div className="text-sm text-black/70">
-              Platforms: {state.postData.platforms.join(", ")}
-            </div>
-          </div>
-        </div>
+        <UploadPost post={state.postData} />
       )}
     </Modal>
   );
