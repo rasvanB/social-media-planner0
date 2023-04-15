@@ -1,8 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { type NextRequest } from "next/server";
 import { prisma } from "~/server/db";
 import { serverPostSchema } from "~/types/post";
-
-// TODO: MAKE SURE TO UPLOAD THE FILE TO STATIC URL AND RETURN THE URL OF THE FILE AFTER CREATING POST
 
 export async function POST(
   req: NextRequest,
@@ -19,9 +18,19 @@ export async function POST(
         scheduledAt: postData.scheduledAt,
         media: postData.file,
         authorId: userId,
+        platforms: {
+          connect: postData.platforms.map((platform) => ({
+            name: platform,
+          })),
+        },
       },
     });
-    return new Response(JSON.stringify(post), { status: 201 });
+
+    const json = JSON.stringify(post, (_key, value) =>
+      typeof value === "bigint" ? value.toString() : value
+    );
+
+    return new Response(json, { status: 201 });
   } catch (error) {
     console.log(error);
     return new Response("Internal Server Error", { status: 500 });
