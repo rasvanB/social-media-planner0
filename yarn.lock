@@ -506,6 +506,11 @@
     "@typescript-eslint/types" "5.56.0"
     "eslint-visitor-keys" "^3.3.0"
 
+"@upload-io/upload-api-client-upload-js@^2.15.0":
+  "integrity" "sha512-UGqT4wxCDhTTKnTLvqtKCyPJSswA2z6/Z6/sMakWGdJBBuwCHcOyXgoWafbPILrgWp3oMMQjnTfwwMBmR0O54w=="
+  "resolved" "https://registry.npmjs.org/@upload-io/upload-api-client-upload-js/-/upload-api-client-upload-js-2.15.0.tgz"
+  "version" "2.15.0"
+
 "acorn-jsx@^5.3.2":
   "integrity" "sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ=="
   "resolved" "https://registry.npmjs.org/acorn-jsx/-/acorn-jsx-5.3.2.tgz"
@@ -2584,6 +2589,11 @@
   dependencies:
     "@prisma/engines" "4.11.0"
 
+"progress-smoother@^1.4.0":
+  "integrity" "sha512-ctIG/KF/3DQ1zQHMWbXjcnicggTsEzZEA2JEnJNrPtK88tmqN9cfQf01yfLWGCBF93R5XN1EUe/z/IV5NKrmCw=="
+  "resolved" "https://registry.npmjs.org/progress-smoother/-/progress-smoother-1.4.0.tgz"
+  "version" "1.4.0"
+
 "prop-types@^15.6.0", "prop-types@^15.6.2", "prop-types@^15.8.1":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
@@ -3130,6 +3140,14 @@
   dependencies:
     "escalade" "^3.1.1"
     "picocolors" "^1.0.0"
+
+"upload-js@^2.11.2":
+  "integrity" "sha512-q6IkwFLA3kL1MbBMvzCbJC0EHjMgjJ399f5QH3Up5rkoVjYXZxTKRgyJQeRT1HpqPQ3gCJdvZuL/Cv1LjBRGMg=="
+  "resolved" "https://registry.npmjs.org/upload-js/-/upload-js-2.11.2.tgz"
+  "version" "2.11.2"
+  dependencies:
+    "@upload-io/upload-api-client-upload-js" "^2.15.0"
+    "progress-smoother" "^1.4.0"
 
 "uri-js@^4.2.2":
   "integrity" "sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg=="

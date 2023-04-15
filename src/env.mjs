@@ -32,6 +32,7 @@ const server = z.object({
  */
 const client = z.object({
   // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
+  NEXT_PUBLIC_UPLOADIO_KEY: z.string().min(1),
 });
 
 /**
@@ -53,6 +54,7 @@ const processEnv = {
   TWITTER_CLIENT_ID: process.env.TWITTER_CLIENT_ID,
   TWITTER_CLIENT_SECRET: process.env.TWITTER_CLIENT_SECRET,
   SENDINBLUE_PASSWORD: process.env.SENDINBLUE_PASSWORD,
+  NEXT_PUBLIC_UPLOADIO_KEY: process.env.NEXT_PUBLIC_UPLOADIO_KEY,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 
