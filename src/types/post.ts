@@ -11,20 +11,21 @@ const customFileSchema = z.custom<File>(
   { message: "Please select a file" }
 );
 
-export const postSchema = z
-  .object({
-    platforms: z
-      .array(z.string())
-      .min(1, { message: "Please select at least one platform" }),
-    message: z
-      .string()
-      .min(1, {
-        message: "Please enter a message",
-      })
-      .max(280, { message: "Message must be less than 280 characters" }),
-    file: customFileSchema,
-    scheduledAt: z.number().min(0, { message: "Please select a valid date" }),
-  })
+const basePostSchema = z.object({
+  platforms: z
+    .array(z.string())
+    .min(1, { message: "Please select at least one platform" }),
+  message: z
+    .string()
+    .min(1, {
+      message: "Please enter a message",
+    })
+    .max(280, { message: "Message must be less than 280 characters" }),
+  file: customFileSchema,
+  scheduledAt: z.number().min(0, { message: "Please select a valid date" }),
+});
+
+export const postSchema = basePostSchema
   .refine((data) => isFileImage(data.file) || isFileVideo(data.file), {
     message: "File must be an image or video",
     path: ["file"],
@@ -37,6 +38,10 @@ export const postSchema = z
     message: "Please select a future date",
     path: ["scheduledAt"],
   });
+
+export const serverPostSchema = basePostSchema.omit({ file: true }).extend({
+  file: z.string().url({ message: "Invalid file url" }),
+});
 
 export type ValidPostState = z.infer<typeof postSchema>;
 
