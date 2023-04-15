@@ -56,7 +56,7 @@ model Post {
   id          String     @id @default(cuid())
   content     String     @db.Text
   media       String?
-  scheduledAt Int
+  scheduledAt BigInt
   published   Boolean    @default(false)
   author      User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
   platforms   Platform[]
@@ -66,11 +66,8 @@ model Post {
 }
 
 model Platform {
-  name   String @id
-  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId String
-
-  @@index([postId])
+  name   String  @id
+  posts  Post[]
 }
 
 model ResetToken {
