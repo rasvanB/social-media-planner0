@@ -27,6 +27,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.8",
     "react-select": "^5.7.2",
+    "twit": "^2.2.11",
     "zod": "^3.21.4"
   },
   "devDependencies": {
@@ -37,6 +38,7 @@
     "@types/prettier": "^2.7.2",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@types/twit": "^2.2.31",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
     "autoprefixer": "^10.4.7",
