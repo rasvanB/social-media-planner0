@@ -49,13 +49,26 @@ model User {
   accounts      Account[]
   sessions      Session[]
   resetTokens   ResetToken[]
+  posts         Post[]
+}
+
+model Post {
+  id          String  @id @default(cuid())
+  content     String  @db.Text
+  media       String?
+  scheduledAt Int
+  published   Boolean @default(false)
+  author      User    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId    String
+
+  @@index([authorId])
 }
 
 model ResetToken {
-  id      String   
-  token   String   @unique @default(cuid())
+  id      String
+  token   String @unique @default(cuid())
   expires String
-  user    User     @relation(fields: [id], references: [id], onDelete: Cascade)
+  user    User   @relation(fields: [id], references: [id], onDelete: Cascade)
 
   @@index([id])
 }
