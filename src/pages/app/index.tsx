@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import ButtonGroup from "~/components/button-group";
 import { SchedulePostModal, UserSettingsModal } from "~/components/modal";
 import Nav from "~/components/nav";
+import Posts from "~/components/posts";
 import { createModalAtom, userSettingsAtom } from "~/utils/jotai";
 
 const App: NextPage = () => {
@@ -33,7 +34,9 @@ const App: NextPage = () => {
         <ButtonGroup />
       </div>
       <div className="mt-3 h-px w-full bg-[#DBDBDB]" />
-      <div className="h-full w-full bg-[#ECECEC]"></div>
+      <div className="h-full w-full bg-[#ECECEC]">
+        <Posts />
+      </div>
     </div>
   );
 };

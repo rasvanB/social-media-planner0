@@ -43,6 +43,7 @@ export const serverPostSchema = basePostSchema.omit({ file: true }).extend({
   file: z.string().url({ message: "Invalid file url" }),
 });
 
+export type ValidServerPostState = z.infer<typeof serverPostSchema>;
 export type ValidPostState = z.infer<typeof postSchema>;
 
 export type Option = {
