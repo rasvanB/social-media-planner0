@@ -4,7 +4,7 @@ import { SessionProvider } from "next-auth/react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import "~/styles/globals.css";
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
