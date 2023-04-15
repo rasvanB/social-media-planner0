@@ -11,6 +11,12 @@ const fetchAccounts = async () => {
   }
 };
 
-const usePlatforms = () => useQuery(["platforms"], () => fetchAccounts());
+const usePlatforms = () =>
+  useQuery(["platforms"], () => fetchAccounts(), {
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: false,
+  });
 
 export default usePlatforms;
