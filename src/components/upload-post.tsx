@@ -3,6 +3,7 @@ import { type Post } from "@prisma/client";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 import { queryClient } from "~/pages/_app";
 import { type ValidServerPostState, type ValidPostState } from "~/types/post";
 import { upload } from "~/utils/upload";
@@ -32,7 +33,10 @@ const UploadPost = ({ post }: { post: ValidPostState }) => {
   const createPostMuatation = useMutation({
     mutationFn: createPost,
     retry: false,
-    onSuccess: () => queryClient.invalidateQueries(["posts"]),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(["posts"]);
+      toast.success("Post created");
+    },
   });
 
   const uploadQuery = useQuery({
@@ -72,9 +76,9 @@ const UploadPost = ({ post }: { post: ValidPostState }) => {
           </div>
         ))}
       {uploadQuery.isSuccess && createPostMuatation.isSuccess && (
-        <div>
+        <div className="mb-4 mt-2">
           <div className="flex items-center gap-2">
-            <Icon icon="mdi:check-circle" className="text-4xl text-green-500" />
+            <Icon icon="mdi:check-circle" className="text-3xl text-green-500" />
             Your post has been scheduled successfully!
           </div>
           <div className="text-center">
