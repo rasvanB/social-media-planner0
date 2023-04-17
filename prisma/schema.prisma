@@ -55,7 +55,7 @@ model User {
 model Post {
   id          String     @id @default(cuid())
   content     String     @db.Text
-  media       String?
+  media       String
   scheduledAt BigInt
   published   Boolean    @default(false)
   author      User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
