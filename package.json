@@ -26,6 +26,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.8",
+    "react-hot-toast": "^2.4.0",
     "react-select": "^5.7.2",
     "twit": "^2.2.11",
     "upload-js": "^2.11.2",
