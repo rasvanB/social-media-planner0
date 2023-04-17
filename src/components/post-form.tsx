@@ -14,18 +14,20 @@ type Props = {
   onPost: (data: ValidPostState) => void;
 };
 
-const defaultData: PostState = {
-  platforms: [],
-  message: "",
-  file: null,
-  scheduledAt: Date.now(),
+const getDefaultData = () => {
+  return {
+    platforms: [],
+    message: "",
+    file: null,
+    scheduledAt: Date.now(),
+  };
 };
 
 const getLocalString = (date: Date) => format(date, "yyyy-MM-dd'T'HH:mm");
 
 const PostForm = ({ onPost }: Props) => {
   const [error, setError] = useState("");
-  const [data, setData] = useState<PostState>(defaultData);
+  const [data, setData] = useState<PostState>(getDefaultData());
   const { data: platforms, status } = usePlatforms();
 
   const options = useMemo(
@@ -79,8 +81,8 @@ const PostForm = ({ onPost }: Props) => {
             setData({ ...data, platforms: e.map((s) => s.value) })
           }
           classNames={{
-            multiValueLabel: () => "bg-blue-500/20",
-            multiValueRemove: () => "bg-blue-500/20",
+            multiValueLabel: () => "bg-blue-200",
+            multiValueRemove: () => "bg-blue-200",
           }}
         />
         <h4 className="mt-3 mb-2 text-sm font-medium leading-none text-[#414141]">

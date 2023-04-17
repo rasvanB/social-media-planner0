@@ -35,7 +35,7 @@ const Nav = () => {
           />
         </button>
         <div
-          className="absolute top-full mt-1 min-w-[200px] rounded-md bg-white py-2 shadow-lg shadow-black/5 outline outline-1 outline-black/5 transition-all duration-100"
+          className="absolute top-full z-10 mt-1 min-w-[200px] rounded-md bg-white py-2 shadow-lg shadow-black/5 outline outline-1 outline-black/5 transition-all duration-100"
           style={{
             visibility: settingsOpen ? "visible" : "hidden",
             opacity: settingsOpen ? 1 : 0,
@@ -67,7 +67,7 @@ const Nav = () => {
       <div className="flex h-fit items-center justify-center rounded-full bg-[#EDF2FF] px-1 py-1">
         <Icon icon="ph:bell-bold" className=" text-[20px] text-[#2F2E6D]" />
         <div className=" ml-1 rounded-full bg-[#6365EF] px-2 py-1 text-center text-xs font-bold leading-tight text-white">
-          23
+          0
         </div>
       </div>
     </div>
