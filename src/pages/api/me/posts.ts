@@ -18,6 +18,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
       const posts = await prisma.post.findMany({
         where: { authorId: data.user.id },
+        include: {
+          platforms: true,
+        },
       });
 
       const json = JSON.stringify(posts, (_key, value) => {

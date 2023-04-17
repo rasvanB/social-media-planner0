@@ -15,7 +15,6 @@ const usePlatforms = () =>
   useQuery(["platforms"], () => fetchAccounts(), {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
     retry: false,
   });
 

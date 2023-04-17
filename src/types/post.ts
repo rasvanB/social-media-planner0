@@ -1,3 +1,4 @@
+import { type Platform, type Post } from "@prisma/client";
 import { z } from "zod";
 import { isFileImage, isFileVideo } from "~/utils/post";
 
@@ -45,6 +46,11 @@ export const serverPostSchema = basePostSchema.omit({ file: true }).extend({
 
 export type ValidServerPostState = z.infer<typeof serverPostSchema>;
 export type ValidPostState = z.infer<typeof postSchema>;
+
+export type PrismaPost = Omit<Post, "scheduledAt"> & {
+  scheduledAt: number;
+  platforms: Platform[];
+};
 
 export type Option = {
   value: string;
