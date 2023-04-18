@@ -1,23 +1,11 @@
 import { Icon } from "@iconify/react";
-import { type Post } from "@prisma/client";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { queryClient } from "~/pages/_app";
-import { type ValidServerPostState, type ValidPostState } from "~/types/post";
+import { type ValidPostState } from "~/types/post";
+import { createPost } from "~/utils/services";
 import { upload } from "~/utils/upload";
-
-const createPost = async ({
-  userId,
-  post,
-}: {
-  userId: string;
-  post: ValidServerPostState;
-}) => {
-  const { data } = await axios.post<Post>(`/api/user/${userId}/posts`, post);
-  return { ...data, scheduledAt: Number(data.scheduledAt) };
-};
 
 const Loading = ({ message }: { message: string }) => {
   return (

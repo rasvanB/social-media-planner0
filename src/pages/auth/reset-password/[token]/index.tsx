@@ -12,9 +12,9 @@ import {
   type ResetPasswordSchema,
 } from "~/types/auth-types";
 import Error from "~/components/error";
-import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+import { resetPassword } from "~/utils/services";
 
 type Props =
   | {
@@ -46,22 +46,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     return { props: { error: null, userId: resetToken.id } };
   }
   return { props: { error: "This reset link is invalid.", userId: null } };
-};
-
-const resetPassword = async ({
-  password,
-  userId,
-}: {
-  password: string;
-  userId: string;
-}) => {
-  const { data } = await axios.post<unknown>(
-    `/api/user/${userId}/reset-password`,
-    {
-      password,
-    }
-  );
-  return data;
 };
 
 const ResetPasswordForm: NextPage<Props> = (props: Props) => {

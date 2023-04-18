@@ -1,19 +1,11 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import { type NextPage } from "next";
 import { useState } from "react";
 import AuthLayout from "~/components/auth-layout";
 import Button from "~/components/button";
 import Error from "~/components/error";
 import { inputStyles } from "~/styles/input-styles";
-
-const sendResetPasswordEmail = async (email: string) => {
-  const { data } = await axios.post<unknown>(`/api/send-email`, {
-    email,
-  });
-  return data;
-};
+import { sendResetPasswordEmail } from "~/utils/services";
 
 const ResetPassword: NextPage = () => {
   const [error, setError] = useState<string | null>(null);

@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { Icon } from "@iconify/react";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { useState } from "react";
@@ -9,26 +8,8 @@ import { queryClient } from "~/pages/_app";
 import { type PrismaPost } from "~/types/post";
 import { icon } from "~/utils/platform";
 import { SettingsButton } from "./button";
-
-const differenceInDays = (date1: Date, date2: Date): number => {
-  const oneDayMilliseconds = 1000 * 60 * 60 * 24;
-  const date1Milliseconds = date1.getTime();
-  const date2Milliseconds = date2.getTime();
-
-  const differenceMilliseconds = date1Milliseconds - date2Milliseconds;
-  const differenceDays = Math.floor(
-    differenceMilliseconds / oneDayMilliseconds
-  );
-
-  return differenceDays;
-};
-
-const rtf = new Intl.RelativeTimeFormat("en", {
-  numeric: "auto",
-  style: "long",
-});
-
-const deletePost = async (id: string) => await axios.delete(`/api/post/${id}`);
+import { differenceInDays, rtf } from "~/utils/date-time";
+import { deletePost } from "~/utils/services";
 
 const Post = ({
   post,

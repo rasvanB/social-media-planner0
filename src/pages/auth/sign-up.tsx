@@ -9,18 +9,10 @@ import { signUpSchema, type SignUpSchema } from "~/types/auth-types";
 import Error from "~/components/error";
 import Button from "~/components/button";
 import axios from "axios";
-import { type User } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Link from "next/link";
-
-const signUp = async (data: SignUpSchema) => {
-  try {
-    await axios.post<User>("/api/auth", data);
-  } catch (error) {
-    throw error;
-  }
-};
+import { signUp } from "~/utils/services";
 
 const SignUp: NextPage = () => {
   const [error, setError] = useState<string | null>(null);

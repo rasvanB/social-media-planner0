@@ -8,7 +8,7 @@ import { postSchema, type ValidPostState, type PostState } from "~/types/post";
 import { isFileImage, isFileVideo } from "~/utils/post";
 import usePlatforms from "~/hooks/usePlatforms";
 import { capitalize } from "~/utils/platform";
-import { format } from "date-fns";
+import { getLocalString } from "~/utils/date-time";
 
 type Props = {
   onPost: (data: ValidPostState) => void;
@@ -22,8 +22,6 @@ const getDefaultData = () => {
     scheduledAt: Date.now(),
   };
 };
-
-const getLocalString = (date: Date) => format(date, "yyyy-MM-dd'T'HH:mm");
 
 const PostForm = ({ onPost }: Props) => {
   const [error, setError] = useState("");
