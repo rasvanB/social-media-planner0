@@ -2,26 +2,6 @@ import axios from "axios";
 import { type NextApiRequest, type NextApiResponse } from "next";
 import { prisma } from "~/server/db";
 import { TwitterClient } from "~/server/platforms";
-import fs from "fs";
-import { type Stream } from "stream";
-
-async function downloadImage(url: string, outputPath: string): Promise<void> {
-  try {
-    const response = await axios.get<Stream>(url, {
-      responseType: "stream",
-    });
-
-    const writer = fs.createWriteStream(outputPath);
-    response.data.pipe(writer);
-
-    await new Promise((resolve, reject) => {
-      writer.on("finish", resolve);
-      writer.on("error", reject);
-    });
-  } catch (error) {
-    console.error("Error downloading image:", error);
-  }
-}
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -60,8 +40,14 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
             access_token: twitterAccount.oauth_token,
             access_token_secret: twitterAccount.oauth_token_secret,
           });
-          await downloadImage(post.media, "image.png");
-          await twitterClient.createImagePost(post.content);
+
+          const response = await axios.get<string>(post.media, {
+            responseType: "arraybuffer",
+          });
+
+          const buffer = Buffer.from(response.data, "binary");
+
+          await twitterClient.createImagePost(post.content, buffer);
 
           hasPublished = true;
         }

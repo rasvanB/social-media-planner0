@@ -22,8 +22,10 @@ export class TwitterClient {
     this.client = createTwitterClient(config);
   }
 
-  async createImagePost(content: string) {
-    const media_id = await this.client.v1.uploadMedia("image.png");
+  async createImagePost(content: string, imageBuffer: Buffer) {
+    const media_id = await this.client.v1.uploadMedia(imageBuffer, {
+      mimeType: "image/png",
+    });
     await this.client.v1.tweet(content, {
       media_ids: media_id,
     });
