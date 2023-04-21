@@ -18,5 +18,12 @@ export const rtf = new Intl.RelativeTimeFormat("en", {
   style: "long",
 });
 
-export const getLocalString = (date: Date) =>
+export const dateIsValid = (date: Date) => {
+  return !Number.isNaN(new Date(date).getTime());
+};
+export const getLocalString = (date: Date) => {
+  if (!dateIsValid(date)) {
+    return "Invalid Date";
+  }
   format(date, "yyyy-MM-dd'T'HH:mm");
+};
