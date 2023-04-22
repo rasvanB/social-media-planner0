@@ -57,6 +57,7 @@ model Post {
   content     String     @db.Text
   media       String
   scheduledAt BigInt
+  createdAt   BigInt    
   published   Boolean    @default(false)
   author      User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
   platforms   Platform[]
