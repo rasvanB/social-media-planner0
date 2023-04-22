@@ -32,6 +32,7 @@ export const fetchPosts = async () => {
     return data.map((post) => ({
       ...post,
       scheduledAt: Number(post.scheduledAt),
+      createdAt: Number(post.createdAt),
     }));
   } catch (error) {
     return [];

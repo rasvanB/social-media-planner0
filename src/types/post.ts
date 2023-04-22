@@ -47,7 +47,8 @@ export const serverPostSchema = basePostSchema.omit({ file: true }).extend({
 export type ValidServerPostState = z.infer<typeof serverPostSchema>;
 export type ValidPostState = z.infer<typeof postSchema>;
 
-export type PrismaPost = Omit<Post, "scheduledAt"> & {
+export type PrismaPost = Omit<Post, "scheduledAt" | "createdAt"> & {
+  createdAt: number;
   scheduledAt: number;
   platforms: Platform[];
 };
@@ -60,3 +61,5 @@ export type Option = {
 export type PostState = Omit<ValidPostState, "file"> & {
   file: File | null;
 };
+
+export type PlatformType = "twitter" | "facebook" | "instagram";
