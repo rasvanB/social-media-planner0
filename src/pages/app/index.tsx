@@ -22,7 +22,7 @@ const App: NextPage = () => {
     <div className="flex h-screen w-screen flex-col">
       <Toaster position="top-center" />
       <ModalArea />
-      <div className="px-2 sm:px-10 lg:px-40 xl:px-60">
+      <div className="px-2 sm:px-10 lg:px-40 xl:px-52">
         <Nav />
         <ButtonGroup />
       </div>

@@ -35,7 +35,7 @@ const Nav = () => {
           />
         </button>
         <div
-          className="absolute top-full z-10 mt-1 min-w-[200px] rounded-md bg-white py-2 shadow-lg shadow-black/5 outline outline-1 outline-black/5 transition-all duration-100"
+          className="absolute top-full z-30 mt-1 min-w-[200px] rounded-md bg-white py-2 shadow-lg shadow-black/5 outline outline-1 outline-black/5 transition-all duration-100"
           style={{
             visibility: settingsOpen ? "visible" : "hidden",
             opacity: settingsOpen ? 1 : 0,

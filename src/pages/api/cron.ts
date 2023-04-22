@@ -11,7 +11,6 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
         platforms: true,
       },
     });
-    // TODO: Send posts to platforms
 
     console.log(posts);
 
