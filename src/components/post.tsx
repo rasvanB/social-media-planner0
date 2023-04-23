@@ -110,8 +110,10 @@ const Post = ({
           }}
         >
           <SettingsButton
-            icon="ph:trash"
-            text="Delete"
+            icon={
+              deletePostMutation.isIdle ? "ph:trash-bold" : "eos-icons:loading"
+            }
+            text={deletePostMutation.isIdle ? "Delete" : "Deleting..."}
             onClick={() => deletePostMutation.mutate(post.id)}
           />
         </div>

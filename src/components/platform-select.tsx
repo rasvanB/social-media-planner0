@@ -15,7 +15,7 @@ const PlatformSelect = () => {
 
   return (
     <div
-      className="relative z-20 flex min-h-[43px] w-full items-center justify-center gap-1.5 whitespace-nowrap rounded border border-[#D8D8D8] px-2 xs:w-fit"
+      className="relative z-20 flex min-h-[43px] w-full items-center justify-center gap-1.5 whitespace-nowrap rounded border border-[#D8D8D8] px-2 xs:w-[300px]"
       style={{
         borderColor: open ? "#6B6CCF" : "#D8D8D8",
       }}
