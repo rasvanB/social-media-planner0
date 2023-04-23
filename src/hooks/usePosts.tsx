@@ -3,7 +3,7 @@ import { fetchPosts } from "~/utils/services";
 
 const usePosts = () =>
   useQuery(["posts"], () => fetchPosts(), {
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     retry: false,
   });

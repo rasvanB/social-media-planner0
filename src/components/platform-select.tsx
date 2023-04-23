@@ -22,7 +22,7 @@ const PlatformSelect = () => {
     >
       <Icon icon={"ph:stack-bold"} className="text-xl text-[#6B6CCF]" />
       <span className="text-[16px] font-medium text-[#121212]">Platforms:</span>
-      <div className=" rounded-full bg-[#EDF2FF] px-2 py-1 text-center text-[14px] font-medium leading-none text-[#2F2E6D] outline outline-1 outline-[#D1D7F2]">
+      <div className="w-[146px] rounded-full bg-[#EDF2FF] px-2 py-1 text-center text-[14px] font-medium leading-none text-[#2F2E6D] outline outline-1 outline-[#D1D7F2]">
         {checkSameArray(platform, allPlatforms)
           ? "All platforms"
           : platform.map((p) => capitalize(p)).join(", ")}

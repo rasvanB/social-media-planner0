@@ -31,9 +31,10 @@ const UploadPost = ({ post }: { post: ValidPostState }) => {
     queryKey: ["upload", post.file.name],
     queryFn: () => upload.uploadFile(post.file),
     onSuccess: ({ fileUrl }) => {
-      if (data.data?.user.id) {
+      const { data: sessionData } = data;
+      if (sessionData) {
         createPostMuatation.mutate({
-          userId: data.data.user.id,
+          userId: sessionData.id,
           post: { ...post, file: fileUrl },
         });
       }

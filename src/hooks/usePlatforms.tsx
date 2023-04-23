@@ -3,7 +3,7 @@ import { fetchAccounts } from "~/utils/services";
 
 const usePlatforms = () =>
   useQuery(["platforms"], () => fetchAccounts(), {
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     retry: false,
   });

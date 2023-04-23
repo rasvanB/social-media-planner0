@@ -15,18 +15,17 @@ export async function POST(
     const post = await prisma.post.create({
       data: {
         content: postData.message,
-        scheduledAt: postData.scheduledAt,
         media: postData.file,
         authorId: userId,
+        createdAt: Date.now(),
+        scheduledAt: postData.scheduledAt,
         platforms: {
           connect: postData.platforms.map((platform) => ({
             name: platform,
           })),
         },
-        createdAt: BigInt(Date.now()),
       },
     });
-
     const json = JSON.stringify(post, (_key, value) =>
       typeof value === "bigint" ? value.toString() : value
     );

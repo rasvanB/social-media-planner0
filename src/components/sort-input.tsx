@@ -22,7 +22,7 @@ const SortInput = () => {
       <span className="text-[16px] font-medium leading-none text-[#121212]">
         Sort by:
       </span>
-      <div className=" rounded-full bg-[#EDF2FF] px-2 py-1 text-center text-[14px] font-medium leading-none text-[#2F2E6D] outline outline-1 outline-[#D1D7F2]">
+      <div className="w-[150px] rounded-full bg-[#EDF2FF] px-2 py-1 text-center text-[14px] font-medium leading-none text-[#2F2E6D] outline outline-1 outline-[#D1D7F2]">
         {`${sortingCriteria.column} ${
           sortingCriteria.ascending ? "ascending" : "descending"
         }`}
