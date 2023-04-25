@@ -10,6 +10,7 @@ datasource db {
 
 model Account {
   id                 String  @id @default(cuid())
+  user_id            String
   userId             String
   type               String
   provider           String
@@ -57,7 +58,7 @@ model Post {
   content     String     @db.Text
   media       String
   scheduledAt BigInt
-  createdAt   BigInt    
+  createdAt   BigInt
   published   Boolean    @default(false)
   author      User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
   platforms   Platform[]
@@ -67,8 +68,8 @@ model Post {
 }
 
 model Platform {
-  name   String  @id
-  posts  Post[]
+  name  String @id
+  posts Post[]
 }
 
 model ResetToken {
