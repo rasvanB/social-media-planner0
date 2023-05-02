@@ -1,7 +1,7 @@
 const Hero = () => {
   return (
     <div>
-      <div className="mt-32 text-center text-7xl font-semibold text-black/90 even:ml-2">
+      <div className="mt-32 text-center text-3xl font-semibold text-black/90 even:ml-2 xs:text-4xl sm:text-7xl">
         Create once, <br />
         <span>
           post{" "}
