@@ -1,13 +1,13 @@
 import { z } from "zod";
 
+const zPassword = z
+  .string()
+  .min(8, { message: "Password must be at least 8 characters long" });
+
 export const resetPasswordSchema = z
   .object({
-    password: z
-      .string()
-      .min(8, { message: "Password must be at least 8 characters long" }),
-    confirmPassword: z
-      .string()
-      .min(8, { message: "Password must be at least 8 characters long" }),
+    password: zPassword,
+    confirmPassword: zPassword,
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -17,9 +17,7 @@ export const resetPasswordSchema = z
 export const signInSchema = z
   .object({
     email: z.string().email(),
-    password: z
-      .string()
-      .min(8, { message: "Password must be at least 8 characters long" }),
+    password: zPassword,
   })
   .required();
 
@@ -28,9 +26,7 @@ export const signUpSchema = signInSchema
     username: z
       .string()
       .min(3, { message: "Username must be at least 3 characters long" }),
-    confirmPassword: z
-      .string()
-      .min(8, { message: "Password must be at least 8 characters long" }),
+    confirmPassword: zPassword,
   })
   .required()
   .refine((data) => data.password === data.confirmPassword, {
